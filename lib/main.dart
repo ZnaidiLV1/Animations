@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:animation/exemples/exemple3_3D.dart';
 import 'package:animation/exemples/exemple4.dart';
 import 'package:animation/exemples/exemple5.dart';
 import 'package:animation/exemples/exemple6.dart';
+import 'package:animation/exemples/exemple7.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(brightness: Brightness.dark),
       title: 'Flutter Demo',
-      home: exemple6(),
+      home: exemple7(),
     );
   }
 }
