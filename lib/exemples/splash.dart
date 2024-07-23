@@ -1,67 +1,13 @@
 import 'dart:math';
-
-import 'package:animation/shortcut/ShowDialog.dart';
+import 'package:animation/HomePage.dart';
 import 'package:flutter/material.dart';
 
-class Polygon extends CustomPainter {
-  final int sides;
-
-  Polygon({
-    required this.sides,
-  });
-
+class SplashScreen extends StatefulWidget {
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.blue
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 3;
-
-    final path = Path();
-
-    final center = Offset(size.width / 2, size.height / 2);
-    final angle = (2 * pi) / sides;
-
-    final angles = List.generate(sides, (index) => index * angle);
-
-    final radius = size.width / 2;
-
-    /*
-    x = center.x + radius * cos(angle)
-    y = center.y + radius * sin(angle)
-    */
-
-    path.moveTo(
-      center.dx + radius * cos(0),
-      center.dy + radius * sin(0),
-    );
-
-    for (final angle in angles) {
-      path.lineTo(
-        center.dx + radius * cos(angle),
-        center.dy + radius * sin(angle),
-      );
-    }
-
-    path.close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) =>
-      oldDelegate is Polygon && oldDelegate.sides != sides;
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class exemple7 extends StatefulWidget {
-  const exemple7({Key? key}) : super(key: key);
-
-  @override
-  State<exemple7> createState() => _exemple7State();
-}
-
-class _exemple7State extends State<exemple7> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController _sidesController;
   late Animation<int> _sidesAnimation;
 
@@ -113,6 +59,15 @@ class _exemple7State extends State<exemple7> with TickerProviderStateMixin {
           ),
         )
         .animate(_rotationController);
+
+    _sidesController.repeat(reverse: true);
+    _radiusController.repeat(reverse: true);
+    _rotationController.repeat(reverse: true);
+
+    // Navigate to Home after 3 seconds
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => Home()));
+    });
   }
 
   @override
@@ -124,36 +79,8 @@ class _exemple7State extends State<exemple7> with TickerProviderStateMixin {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _sidesController.repeat(reverse: true);
-    _radiusController.repeat(reverse: true);
-    _rotationController.repeat(reverse: true);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff424242),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.only(right: 70),
-              child: Text("Starting",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-            ),
-            IconButton(
-                onPressed: () {
-                  showCustomDialog(
-                      context, "CustomPainter", "canvas.drawPath(path, paint)");
-                },
-                icon: Icon(Icons.info))
-          ],
-        ),
-        centerTitle: true,
-      ),
       body: Center(
         child: AnimatedBuilder(
           animation: Listenable.merge(
@@ -183,4 +110,50 @@ class _exemple7State extends State<exemple7> with TickerProviderStateMixin {
       ),
     );
   }
+}
+
+class Polygon extends CustomPainter {
+  final int sides;
+
+  Polygon({
+    required this.sides,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.blue
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 3;
+
+    final path = Path();
+
+    final center = Offset(size.width / 2, size.height / 2);
+    final angle = (2 * pi) / sides;
+
+    final angles = List.generate(sides, (index) => index * angle);
+
+    final radius = size.width / 2;
+
+    path.moveTo(
+      center.dx + radius * cos(0),
+      center.dy + radius * sin(0),
+    );
+
+    for (final angle in angles) {
+      path.lineTo(
+        center.dx + radius * cos(angle),
+        center.dy + radius * sin(angle),
+      );
+    }
+
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) =>
+      oldDelegate is Polygon && oldDelegate.sides != sides;
 }

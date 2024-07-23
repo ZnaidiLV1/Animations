@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animation/exemples/test.dart';
+import 'package:animation/shortcut/ShowDialog.dart';
 import 'package:flutter/material.dart';
 
 class Exemple2 extends StatefulWidget {
@@ -121,6 +122,25 @@ class _Exemple2State extends State<Exemple2> with TickerProviderStateMixin {
         ..forward();
     });
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff424242),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 60),
+              child: Text("Starting",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            ),
+            IconButton(
+                onPressed: () {
+                  showCustomDialog(context, "ClipPath", "CustomClipper<Path>");
+                },
+                icon: Icon(Icons.info))
+          ],
+        ),
+        centerTitle: true,
+      ),
       body: Center(
         child: AnimatedBuilder(
           animation: Listenable.merge(

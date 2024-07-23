@@ -1,3 +1,4 @@
+import 'package:animation/shortcut/ShowDialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -37,8 +38,22 @@ class _exemple6State extends State<exemple6> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff424242),
-        title: Text("Color Change",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 20),
+              child: Text("Color Change",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            ),
+            IconButton(
+                onPressed: () {
+                  showCustomDialog(
+                      context, "ColorTween", "ColorFiltered \nColorTween");
+                },
+                icon: Icon(Icons.info))
+          ],
+        ),
         centerTitle: true,
       ),
       body: Center(

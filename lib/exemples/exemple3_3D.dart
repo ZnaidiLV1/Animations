@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:animation/shortcut/ShowDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vmath;
 
@@ -51,6 +52,26 @@ class _exemple3State extends State<exemple3> with TickerProviderStateMixin {
       ..reset()
       ..repeat();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff424242),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 118),
+              child: Text("3D",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            ),
+            IconButton(
+                onPressed: () {
+                  showCustomDialog(
+                      context, "Listenable.merge", "..translate vmath.Vector3");
+                },
+                icon: Icon(Icons.info))
+          ],
+        ),
+        centerTitle: true,
+      ),
       body: Center(
         child: AnimatedBuilder(
           animation:

@@ -1,3 +1,4 @@
+import 'package:animation/shortcut/ShowDialog.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -44,8 +45,21 @@ class _Exemple5State extends State<Exemple5> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff424242),
-        title: Text("People",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 90),
+              child: Text("Photo",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            ),
+            IconButton(
+                onPressed: () {
+                  showCustomDialog(context, "AnimatedContainer", "");
+                },
+                icon: Icon(Icons.info))
+          ],
+        ),
         centerTitle: true,
       ),
       body: Column(

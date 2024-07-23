@@ -1,4 +1,5 @@
 import 'package:animation/exemples/exemple4Detail.dart';
+import 'package:animation/shortcut/ShowDialog.dart';
 import 'package:flutter/material.dart';
 
 class Personne {
@@ -10,9 +11,9 @@ class Personne {
 }
 
 List<Personne> personne = [
-  Personne(emoji: '🙋‍♂️', name: "znaidi", age: 22),
-  Personne(emoji: '🤦‍♂️', name: "oussema", age: 23),
-  Personne(emoji: '😊', name: "wissem", age: 22),
+  Personne(emoji: '🙋‍♂️', name: "Person1", age: 22),
+  Personne(emoji: '🤦‍♂️', name: "Person2", age: 23),
+  Personne(emoji: '😊', name: "Person3", age: 22),
 ];
 
 class exemple4 extends StatefulWidget {
@@ -28,8 +29,21 @@ class _exemple4State extends State<exemple4> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff424242),
-        title: Text("People",
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 103),
+              child: Text("Hero",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+            ),
+            IconButton(
+                onPressed: () {
+                  showCustomDialog(context, "Tag", "flightShuttleBuilder");
+                },
+                icon: Icon(Icons.info))
+          ],
+        ),
         centerTitle: true,
       ),
       body: ListView.builder(
